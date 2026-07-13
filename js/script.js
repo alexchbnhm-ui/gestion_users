@@ -8,12 +8,12 @@ function guardar_usuario() {
   const telefono = document.getElementById('telefono').value;
   const correo = document.getElementById('correo').value;
   const contraseña = document.getElementById('contraseña').value;
-console.log(nombre, apellido,telefono,correo, contraseña)
+  console.log(nombre, apellido, telefono, correo, contraseña)
   if (!nombre || !apellido || !telefono || !correo || !contraseña) {
     alert('Por favor completa todos los campos.');
     return;
   }
-console.log(nombre, apellido,telefono,correo, contraseña + "2")
+  console.log(nombre, apellido, telefono, correo, contraseña + "2")
 
   const url = `backend/index.php?action=agregar_usuario&nombre=${nombre}&apellido=${apellido}&telefono=${telefono}&correo=${correo}&contraseña=${contraseña}`;
 
@@ -95,70 +95,70 @@ function limpiarFormulario() {
 }
 function mostrarFormularioModificar(id) {
 
-    // Obtiene los datos del usuario desde el backend
+  // Obtiene los datos del usuario desde el backend
 
-    const url = 'backend/index.php?action=usuario&id=' + id;
+  const url = 'backend/index.php?action=usuario&id=' + id;
 
-   
 
-    fetch(url)
 
-        .then(response => response.json())
+  fetch(url)
 
-        .then(usuario => {
+    .then(response => response.json())
 
-            // Llena el formulario con los datos del usuario
+    .then(usuario => {
 
-            document.getElementById("usuarioId").value = id;
+      // Llena el formulario con los datos del usuario
 
-            document.getElementById("nombre").value = usuario.nombre;
+      document.getElementById("usuarioId").value = id;
 
-            document.getElementById("email").value = usuario.email;
+      document.getElementById("nombre").value = usuario.nombre;
 
-           
+      document.getElementById("email").value = usuario.email;
 
-            // Cambia el texto del botón y su comportamiento
 
-            document.getElementById("btnEnviar").textContent = "Modificar";
 
-            document.getElementById("btnEnviar").onclick = function() {
+      // Cambia el texto del botón y su comportamiento
 
-                modificarUsuario(id,
+      document.getElementById("btnEnviar").textContent = "Modificar";
 
-                    document.getElementById("nombre").value,
+      document.getElementById("btnEnviar").onclick = function () {
 
-                    document.getElementById("email").value);
+        modificarUsuario(id,
 
-            };
+          document.getElementById("nombre").value,
 
-           
+          document.getElementById("email").value);
 
-            // Muestra el botón de cancelar
+      };
 
-            document.getElementById("btnCancelar").style.display = "inline-block";
 
-           
 
-            // Desplaza la página al formulario
+      // Muestra el botón de cancelar
 
-            document.getElementById("frmUsuario").scrollIntoView({ behavior: 'smooth' });
+      document.getElementById("btnCancelar").style.display = "inline-block";
 
-        })
 
-        .catch(error => console.error('Error al cargar usuario:', error));
+
+      // Desplaza la página al formulario
+
+      document.getElementById("frmUsuario").scrollIntoView({ behavior: 'smooth' });
+
+    })
+
+    .catch(error => console.error('Error al cargar usuario:', error));
 
 }
 function modificarUsuario(id, nombre, email) {
 
-    const url = `backend/index.php?action=modificar_usuario&id=${id}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}`;
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data === true || data === 1) {
-                mostrar_datos();
-            } else {
-                alert('No se pudo modificar el usuario.');
-            }
-        })
-        .catch(() => alert('Error al conectar con el servidor.'));
+  const url = `backend/index.php?action=modificar_usuario&id=${id}&nombre=${encodeURIComponent(nombre)}&email=${encodeURIComponent(email)}`;
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      if (data === true || data === 1) {
+        mostrar_datos();
+      } else {
+        alert('No se pudo modificar el usuario.');
+      }
+    })
+    .catch(() => alert('Error al conectar con el servidor.'));
 }
